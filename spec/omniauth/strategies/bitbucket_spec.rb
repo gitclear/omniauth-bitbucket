@@ -58,7 +58,7 @@ describe OmniAuth::Strategies::Bitbucket do
 
     it "returns the uuid from raw_info" do
       # Fixture: spec/fixtures/user_response.json
-      expect(subject.uid).to eq("{b60dceb4-5eed-4bc5-9482-0c4be74fd721}")
+      expect(subject.uid).to eq("712020:16661695-ccf6-436c-acc7-6100777804eb")
     end
   end
 
