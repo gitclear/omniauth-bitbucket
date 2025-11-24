@@ -1,0 +1,34 @@
+{
+  "display_name": "Codrin Mares",
+  "links": {
+    "self": {
+      "href": "https://bitbucket.org/!api/2.0/users/%7Bb60dceb4-5eed-4bc5-9482-0c4be74fd721%7D"
+    },
+    "avatar": {
+      "href": "https://secure.gravatar.com/avatar/2cef695d1c9b5f9873522586cc5261c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCM-2.png"
+    },
+    "repositories": {
+      "href": "https://bitbucket.org/!api/2.0/repositories/%7Bb60dceb4-5eed-4bc5-9482-0c4be74fd721%7D"
+    },
+    "snippets": {
+      "href": "https://bitbucket.org/!api/2.0/snippets/%7Bb60dceb4-5eed-4bc5-9482-0c4be74fd721%7D"
+    },
+    "html": {
+      "href": "https://bitbucket.org/%7Bb60dceb4-5eed-4bc5-9482-0c4be74fd721%7D/"
+    },
+    "hooks": {
+      "href": "https://bitbucket.org/!api/2.0/workspaces/%7Bb60dceb4-5eed-4bc5-9482-0c4be74fd721%7D/hooks"
+    }
+  },
+  "created_on": "2025-08-23T16:14:00.944810+00:00",
+  "type": "user",
+  "uuid": "{b60dceb4-5eed-4bc5-9482-0c4be74fd721}",
+  "has_2fa_enabled": null,
+  "username": "codrin2",
+  "is_staff": false,
+  "account_id": "712020:16661695-ccf6-436c-acc7-6100777804eb",
+  "nickname": "Codrin Mares",
+  "account_status": "active",
+  "location": null
+}
+

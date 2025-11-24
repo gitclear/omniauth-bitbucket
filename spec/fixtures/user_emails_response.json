@@ -1,0 +1,19 @@
+{
+  "values": [
+    {
+      "type": "email",
+      "links": {
+        "self": {
+          "href": "https://bitbucket.org/!api/2.0/user/emails/codrin@gitclear.com"
+        }
+      },
+      "email": "codrin@gitclear.com",
+      "is_primary": true,
+      "is_confirmed": true
+    }
+  ],
+  "pagelen": 10,
+  "size": 1,
+  "page": 1
+}
+

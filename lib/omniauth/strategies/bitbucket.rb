@@ -1,40 +1,55 @@
-require 'omniauth-oauth2'
+require "omniauth-oauth2"
 
 module OmniAuth
   module Strategies
     class Bitbucket < OmniAuth::Strategies::OAuth2
+      SITE_URL = "https://bitbucket.org"
+      AUTHORIZE_URL = "https://bitbucket.org/site/oauth2/authorize"
+      TOKEN_URL = "https://bitbucket.org/site/oauth2/access_token"
+      USER_API_PATH = "/api/2.0/user"
+      USER_EMAILS_API_PATH = "/api/2.0/user/emails"
+
+      # ----------------------------------------------------------------------------
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options, {
-        :site => 'https://bitbucket.org',
-        :authorize_url     => 'https://bitbucket.org/site/oauth2/authorize',
-        :token_url  => 'https://bitbucket.org/site/oauth2/access_token'
+        :site => SITE_URL,
+        :authorize_url => AUTHORIZE_URL,
+        :token_url => TOKEN_URL
       }
 
-      # These are called after authentication has succeeded. If
-      # possible, you should try to set the UID without making
+      # The methods below are called after authentication has succeeded.
+      # If possible, you should try to set the UID without making
       # additional calls (if the user id is returned with the token
       # or as a URI parameter). This may not be possible with all
       # providers.
-      uid { raw_info['username'] }
+      # More info on what the fields mean: https://public.amplenote.com/j23hekAmVpQWsJcWrUT1G3eC
 
+      # ----------------------------------------------------------------------------
+      # As of Nov 2025, "uuid" is to be unique at the Bitbucket level and should be used as the UID.
+      uid { raw_info["uuid"] }
+
+      # ----------------------------------------------------------------------------
       info do
         {
-          :name => "#{raw_info['first_name']} #{raw_info['last_name']}",
-          :avatar => raw_info['avatar'],
-          :email => raw_info['email']
+          :name => raw_info["display_name"],
+          :username => raw_info["username"] || raw_info["nickname"],
+          :avatar => raw_info.dig("links", "avatar", "href"),
+          :email => raw_info["email"]
         }
       end
 
+      # ----------------------------------------------------------------------------
       def raw_info
         @raw_info ||= begin
-                        ri = MultiJson.decode(access_token.get('/api/2.0/user').body)
-                        email = MultiJson.decode(access_token.get('/api/2.0/user/emails').body)['values'].find { |email| email['is_primary'] }
-                        ri.merge!('email' => email['email']) if email
-                        ri
+                        user_data = MultiJson.decode(access_token.get(USER_API_PATH).body)
+                        primary_email_data = MultiJson.decode(access_token.get(USER_EMAILS_API_PATH).body)["values"].find { |email| email["is_primary"] }
+                        user_data.merge!("email" => primary_email_data["email"]) if primary_email_data
+                        user_data
                       end
       end
 
+      # ----------------------------------------------------------------------------
       def callback_url
         full_host + script_name + callback_path
       end
