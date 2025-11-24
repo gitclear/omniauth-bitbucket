@@ -56,9 +56,9 @@ describe OmniAuth::Strategies::Bitbucket do
       strategy
     end
 
-    it "returns the uuid from raw_info" do
+    it "returns the account_id from raw_info" do
       # Fixture: spec/fixtures/user_response.json
-      expect(subject.uid).to eq("712020:16661695-ccf6-436c-acc7-6100777804eb")
+      expect(subject.uid).to eq("123456:abcdef12-3456-7890-abcd-ef1234567890")
     end
   end
 
@@ -80,16 +80,16 @@ describe OmniAuth::Strategies::Bitbucket do
       raw_info = subject.raw_info
 
       # Fixture: spec/fixtures/user_response.json
-      expect(raw_info["uuid"]).to eq("{b60dceb4-5eed-4bc5-9482-0c4be74fd721}")
-      expect(raw_info["display_name"]).to eq("Codrin Mares")
-      expect(raw_info["username"]).to eq("codrin2")
-      expect(raw_info["nickname"]).to eq("Codrin Mares")
-      expect(raw_info["account_id"]).to eq("712020:16661695-ccf6-436c-acc7-6100777804eb")
+      expect(raw_info["uuid"]).to eq("{12345678-1234-1234-1234-123456789abc}")
+      expect(raw_info["display_name"]).to eq("Test User")
+      expect(raw_info["username"]).to eq("testuser")
+      expect(raw_info["nickname"]).to eq("Test User")
+      expect(raw_info["account_id"]).to eq("123456:abcdef12-3456-7890-abcd-ef1234567890")
       # Fixture: spec/fixtures/user_emails_response.json
-      expect(raw_info["email"]).to eq("codrin@gitclear.com")
+      expect(raw_info["email"]).to eq("testuser@example.com")
       # Fixture: spec/fixtures/user_response.json
       expect(raw_info["type"]).to eq("user")
-      expect(raw_info["created_on"]).to eq("2025-08-23T16:14:00.944810+00:00")
+      expect(raw_info["created_on"]).to eq("2020-01-01T00:00:00.000000+00:00")
     end
 
     it "memoizes the result" do
@@ -130,12 +130,12 @@ describe OmniAuth::Strategies::Bitbucket do
       info = subject.info
 
       # Fixture: spec/fixtures/user_response.json
-      expect(info[:name]).to eq("Codrin Mares")
-      expect(info[:username]).to eq("codrin2")
+      expect(info[:name]).to eq("Test User")
+      expect(info[:username]).to eq("testuser")
       # Fixture: spec/fixtures/user_emails_response.json
-      expect(info[:email]).to eq("codrin@gitclear.com")
+      expect(info[:email]).to eq("testuser@example.com")
       # Fixture: spec/fixtures/user_response.json
-      expect(info[:avatar]).to eq("https://secure.gravatar.com/avatar/2cef695d1c9b5f9873522586cc5261c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCM-2.png")
+      expect(info[:avatar]).to eq("https://secure.gravatar.com/avatar/abcdef1234567890abcdef1234567890?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTU-1.png")
       expect(info[:avatar]).to match(/\Ahttps?:\/\//)
     end
   end
