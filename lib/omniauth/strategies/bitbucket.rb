@@ -23,11 +23,16 @@ module OmniAuth
       # additional calls (if the user id is returned with the token
       # or as a URI parameter). This may not be possible with all
       # providers.
+      #
       # More info on what the fields mean: https://public.amplenote.com/j23hekAmVpQWsJcWrUT1G3eC
+      #
+      # For future maintainers:
+      #   If any of these field mappings are updated, consider updating the gitclear/gitclear repo files as well:
+      #     `vendor/gems/repo_interface/app/lib/external_user/bitbucket_user.rb`
 
       # ----------------------------------------------------------------------------
-      # As of Nov 2025, "uuid" is to be unique at the Bitbucket level and should be used as the UID.
-      uid { raw_info["uuid"] }
+      # Account ID is preferred, recommended and future-proof option as a unique identifier for users.
+      uid { raw_info["account_id"] }
 
       # ----------------------------------------------------------------------------
       info do
