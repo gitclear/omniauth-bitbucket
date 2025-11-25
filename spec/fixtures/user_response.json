@@ -1,0 +1,33 @@
+{
+  "display_name": "Test User",
+  "links": {
+    "self": {
+      "href": "https://bitbucket.org/!api/2.0/users/%7B12345678-1234-1234-1234-123456789abc%7D"
+    },
+    "avatar": {
+      "href": "https://secure.gravatar.com/avatar/abcdef1234567890abcdef1234567890?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FTU-1.png"
+    },
+    "repositories": {
+      "href": "https://bitbucket.org/!api/2.0/repositories/%7B12345678-1234-1234-1234-123456789abc%7D"
+    },
+    "snippets": {
+      "href": "https://bitbucket.org/!api/2.0/snippets/%7B12345678-1234-1234-1234-123456789abc%7D"
+    },
+    "html": {
+      "href": "https://bitbucket.org/%7B12345678-1234-1234-1234-123456789abc%7D/"
+    },
+    "hooks": {
+      "href": "https://bitbucket.org/!api/2.0/workspaces/%7B12345678-1234-1234-1234-123456789abc%7D/hooks"
+    }
+  },
+  "created_on": "2020-01-01T00:00:00.000000+00:00",
+  "type": "user",
+  "uuid": "{12345678-1234-1234-1234-123456789abc}",
+  "has_2fa_enabled": null,
+  "username": "testuser",
+  "is_staff": false,
+  "account_id": "123456:abcdef12-3456-7890-abcd-ef1234567890",
+  "nickname": "Test User",
+  "account_status": "active",
+  "location": null
+}
