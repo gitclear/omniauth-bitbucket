@@ -1,7 +1,8 @@
 require "multi_json"
 require "spec_helper"
 
-describe OmniAuth::Strategies::Bitbucket do
+# ---------------------------------------------------------------------------
+context OmniAuth::Strategies::Bitbucket do
   let(:app) do
     Rack::Builder.new do |b|
       b.use Rack::Session::Cookie, secret: "test_secret"
@@ -30,17 +31,19 @@ describe OmniAuth::Strategies::Bitbucket do
       .to_return(status: 200, body: emails_response_body, headers: { "Content-Type" => "application/json" })
   end
 
-  describe "#options" do
+  # ---------------------------------------------------------------------------
+  context "when configuring options" do
     subject { OmniAuth::Strategies::Bitbucket.new(app, "test_key", "test_secret") }
 
-    it "sets the correct client options" do
+    it "should set the correct client options" do
       expect(subject.options.client_options.site).to eq(OmniAuth::Strategies::Bitbucket::SITE_URL)
       expect(subject.options.client_options.authorize_url).to eq(OmniAuth::Strategies::Bitbucket::AUTHORIZE_URL)
       expect(subject.options.client_options.token_url).to eq(OmniAuth::Strategies::Bitbucket::TOKEN_URL)
     end
   end
 
-  describe "#uid" do
+  # ---------------------------------------------------------------------------
+  context "when getting uid" do
     subject do
       strategy = OmniAuth::Strategies::Bitbucket.new(app, "test_key", "test_secret")
       access_token_double = double("access_token")
@@ -56,13 +59,14 @@ describe OmniAuth::Strategies::Bitbucket do
       strategy
     end
 
-    it "returns the account_id from raw_info" do
+    it "should return the account_id from raw_info" do
       # Fixture: spec/fixtures/user_response.json
       expect(subject.uid).to eq("123456:abcdef12-3456-7890-abcd-ef1234567890")
     end
   end
 
-  describe "#raw_info" do
+  # ---------------------------------------------------------------------------
+  context "when getting raw_info" do
     subject do
       OmniAuth::Strategies::Bitbucket.new(app, "test_key", "test_secret").tap do |strategy|
         access_token_double = double("access_token")
@@ -76,7 +80,7 @@ describe OmniAuth::Strategies::Bitbucket do
       end
     end
 
-    it "returns the user information with merged email" do
+    it "should return the user information with merged email" do
       raw_info = subject.raw_info
 
       # Fixture: spec/fixtures/user_response.json
@@ -92,7 +96,7 @@ describe OmniAuth::Strategies::Bitbucket do
       expect(raw_info["created_on"]).to eq("2020-01-01T00:00:00.000000+00:00")
     end
 
-    it "memoizes the result" do
+    it "should memoize the result" do
       access_token_double = double("access_token")
       # Fixture: spec/fixtures/user_response.json
       allow(access_token_double).to receive(:get).with("/api/2.0/user").once.and_return(
@@ -112,7 +116,8 @@ describe OmniAuth::Strategies::Bitbucket do
     end
   end
 
-  describe "#info" do
+  # ---------------------------------------------------------------------------
+  context "when getting info" do
     subject do
       OmniAuth::Strategies::Bitbucket.new(app, "test_key", "test_secret").tap do |strategy|
         access_token_double = double("access_token")
@@ -126,7 +131,7 @@ describe OmniAuth::Strategies::Bitbucket do
       end
     end
 
-    it "returns the correct info hash" do
+    it "should return the correct info hash" do
       info = subject.info
 
       # Fixture: spec/fixtures/user_response.json
@@ -140,7 +145,8 @@ describe OmniAuth::Strategies::Bitbucket do
     end
   end
 
-  describe "#callback_url" do
+  # ---------------------------------------------------------------------------
+  context "when getting callback_url" do
     subject do
       OmniAuth::Strategies::Bitbucket.new(app, "test_key", "test_secret").tap do |strategy|
         allow(strategy).to receive(:full_host).and_return("http://localhost:3000")
@@ -149,16 +155,17 @@ describe OmniAuth::Strategies::Bitbucket do
       end
     end
 
-    it "returns the correct callback URL" do
+    it "should return the correct callback URL" do
       expect(subject.callback_url).to eq("http://localhost:3000/users/auth/bitbucket/callback")
     end
 
+    # ---------------------------------------------------------------------------
     context "with a script_name" do
       before do
         allow(subject).to receive(:script_name).and_return("/app")
       end
 
-      it "includes the script_name in the callback URL" do
+      it "should include the script_name in the callback URL" do
         expect(subject.callback_url).to eq("http://localhost:3000/app/users/auth/bitbucket/callback")
       end
     end

@@ -47,11 +47,11 @@ module OmniAuth
       # ----------------------------------------------------------------------------
       def raw_info
         @raw_info ||= begin
-                        user_data = MultiJson.decode(access_token.get(USER_API_PATH).body)
-                        primary_email_data = MultiJson.decode(access_token.get(USER_EMAILS_API_PATH).body)["values"].find { |email| email["is_primary"] }
-                        user_data.merge!("email" => primary_email_data["email"]) if primary_email_data
-                        user_data
-                      end
+          user_data = MultiJson.decode(access_token.get(USER_API_PATH).body)
+          primary_email_data = MultiJson.decode(access_token.get(USER_EMAILS_API_PATH).body)["values"].find { |email| email["is_primary"] }
+          user_data.merge!("email" => primary_email_data["email"]) if primary_email_data
+          user_data
+        end
       end
 
       # ----------------------------------------------------------------------------
